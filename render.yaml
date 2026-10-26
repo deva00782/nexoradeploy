@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: nexora
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node .output/server/index.mjs
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NITRO_PRESET
+        value: node-server
+
+      # Non-secret Supabase values (safe to keep in the repo)
+      - key: SUPABASE_URL
+        value: https://gfoucwrahfrygmnyxegw.supabase.co
+      - key: SUPABASE_PROJECT_ID
+        value: gfoucwrahfrygmnyxegw
+      - key: VITE_SUPABASE_URL
+        value: https://gfoucwrahfrygmnyxegw.supabase.co
+      - key: VITE_SUPABASE_PROJECT_ID
+        value: gfoucwrahfrygmnyxegw
+
+      # Keys: Render will ask you to paste these when you create the Blueprint.
+      # They are NOT stored in this file so they don't leak through GitHub.
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: VITE_SUPABASE_PUBLISHABLE_KEY
+        sync: false
